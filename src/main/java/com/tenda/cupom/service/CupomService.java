@@ -15,6 +15,9 @@ public class CupomService {
     private CupomRepository repository;
 
     public Cupom salvar(Cupom cupom){
+        if (repository.existsByCode(cupom.getCode())) {
+            throw new IllegalArgumentException("Já existe cupom com esse código");
+        }
         return repository.save(cupom);
     }
 
@@ -24,6 +27,9 @@ public class CupomService {
 
     @Transactional
     public void deletarId(String code) {
+        if (!repository.existsByCode(code)) {
+            throw new IllegalArgumentException("Nao existe um cupom com esse code");
+        }
         repository.deleteByCode(code);
     }
 }

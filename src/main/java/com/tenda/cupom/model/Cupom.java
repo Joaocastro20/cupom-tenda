@@ -50,12 +50,33 @@ public class Cupom {
     private boolean redeemed;
 
     public Cupom(String code, String description, BigDecimal discountValue, OffsetDateTime expirationDate) {
-        this.code = code;
+        this.code = limparCodigo(code);
         this.description = description;
-        this.discountValue = discountValue;
-        this.expirationDate = expirationDate;
+        this.discountValue = verificarDesconto(discountValue);
+        this.expirationDate = verificarExpiracao(expirationDate);
         this.status = CupomStatus.ACTIVE;
         this.published = false;
         this.redeemed = false;
     }
+
+    private static String limparCodigo(String code) {
+        String limpo = code.replaceAll("[^a-zA-Z0-9]", "");
+        return limpo.toUpperCase();
+    }
+
+    private static BigDecimal verificarDesconto(BigDecimal valor) {
+        if (valor == null || valor.compareTo(BigDecimal.valueOf(0.5)) < 0) {
+            throw new IllegalArgumentException("O valor do desconto de ser maior ou igual a 0,5");
+        }
+        return valor;
+    }
+
+    private static OffsetDateTime verificarExpiracao(OffsetDateTime data) {
+        if (data == null || data.isBefore(OffsetDateTime.now())) {
+            throw new IllegalArgumentException("A data de expiraçao nao pode ser no passado");
+        }
+        return data;
+    }
+
+
 }

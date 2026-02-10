@@ -9,4 +9,6 @@ public interface CupomRepository extends JpaRepository<Cupom, Long> {
     Optional<Cupom> findByCode(String code);
 
     void deleteByCode(String code);
+
+    boolean existsByCode(String code);
 }
