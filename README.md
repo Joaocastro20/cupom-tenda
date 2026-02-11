@@ -29,3 +29,23 @@ Certifique-se de ter **Java 21** e **Maven 3.9.9** instalados.
 
 ```bash
 mvn install
+```
+
+```bash
+mvn spring-boot:run
+```
+
+A aplicação estará disponível em:
+[Link Text](http://localhost:8080)
+
+## 🐳 Rodar com Docker
+
+1. Na raiz do projeto, execute:
+
+```bash
+docker-compose up --build
+```
+## 📖 Acessar Swagger
+
+[Link Text]([http://localhost:8080](http://localhost:8080/swagger-ui/index.html))
+
