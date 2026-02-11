@@ -36,7 +36,7 @@ mvn spring-boot:run
 ```
 
 A aplicação estará disponível em:
-[Link Text](http://localhost:8080)
+[localhost 🔗](http://localhost:8080)
 
 ## 🐳 Rodar com Docker
 
@@ -47,5 +47,5 @@ docker-compose up --build
 ```
 ## 📖 Acessar Swagger
 
-[Link Text](http://localhost:8080/swagger-ui/index.html)
+[swagger 🔗](http://localhost:8080/swagger-ui/index.html)
 
