@@ -47,5 +47,5 @@ docker-compose up --build
 ```
 ## 📖 Acessar Swagger
 
-[Link Text]([http://localhost:8080](http://localhost:8080/swagger-ui/index.html))
+[Link Text](http://localhost:8080](http://localhost:8080/swagger-ui/index.html)
 
