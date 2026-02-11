@@ -1,5 +1,7 @@
 package com.tenda.cupom.service;
 
+import com.tenda.cupom.exception.CupomExistenteException;
+import com.tenda.cupom.exception.CupomInexistenteException;
 import com.tenda.cupom.model.Cupom;
 import com.tenda.cupom.repository.CupomRepository;
 import jakarta.transaction.Transactional;
@@ -16,19 +18,19 @@ public class CupomService {
 
     public Cupom salvar(Cupom cupom){
         if (repository.existsByCode(cupom.getCode())) {
-            throw new IllegalArgumentException("Já existe cupom com esse código");
+            throw new CupomExistenteException(cupom.getCode());
         }
         return repository.save(cupom);
     }
 
     public Optional<Cupom> buscarCode(String code){
-        return repository.findByCode(code);
+        return Optional.ofNullable(repository.findByCode(code).orElseThrow(() -> new CupomInexistenteException(code)));
     }
 
     @Transactional
     public void deletarId(String code) {
         if (!repository.existsByCode(code)) {
-            throw new IllegalArgumentException("Nao existe um cupom com esse code");
+            throw new CupomInexistenteException(code);
         }
         repository.deleteByCode(code);
     }

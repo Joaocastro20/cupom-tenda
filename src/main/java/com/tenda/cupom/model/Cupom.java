@@ -1,6 +1,8 @@
 package com.tenda.cupom.model;
 
 import com.tenda.cupom.enums.CupomStatus;
+import com.tenda.cupom.exception.DescontoException;
+import com.tenda.cupom.exception.ExpiracaoException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Future;
@@ -60,20 +62,19 @@ public class Cupom {
     }
 
     private static String limparCodigo(String code) {
-        String limpo = code.replaceAll("[^a-zA-Z0-9]", "");
-        return limpo.toUpperCase();
+        return code.replaceAll("[^a-zA-Z0-9]", "");
     }
 
     private static BigDecimal verificarDesconto(BigDecimal valor) {
         if (valor == null || valor.compareTo(BigDecimal.valueOf(0.5)) < 0) {
-            throw new IllegalArgumentException("O valor do desconto de ser maior ou igual a 0,5");
+            throw new DescontoException();
         }
         return valor;
     }
 
     private static OffsetDateTime verificarExpiracao(OffsetDateTime data) {
         if (data == null || data.isBefore(OffsetDateTime.now())) {
-            throw new IllegalArgumentException("A data de expiraçao nao pode ser no passado");
+            throw new ExpiracaoException();
         }
         return data;
     }
